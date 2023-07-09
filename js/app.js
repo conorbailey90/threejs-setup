@@ -55,12 +55,13 @@ export default class Sketch{
     }
 
     addObjects(){
-        this.geometry = new THREE.BoxGeometry( 1, 1, 1 );
+        this.geometry = new THREE.PlaneGeometry(.5, .5, 10, 10)
         // this.material = new THREE.MeshNormalMaterial( { color: 0x00ff00 } );
         this.material = new THREE.ShaderMaterial({
+            side: THREE.DoubleSide,
             fragmentShader: fragment,
             vertexShader: vertex,
-
+            wireframe: true
         })
         this.cube = new THREE.Mesh( this.geometry, this.material );
         this.scene.add( this.cube );
@@ -68,8 +69,6 @@ export default class Sketch{
 
     render(){
         this.time += 0.5;
-        this.cube.rotation.x += 0.001;
-	    this.cube.rotation.y += 0.001;
         this.renderer.render( this.scene, this.camera );
         window.requestAnimationFrame(this.render.bind(this));
     }
