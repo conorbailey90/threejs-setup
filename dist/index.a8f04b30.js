@@ -623,19 +623,19 @@ class Sketch {
         this.camera.updateProjectionMatrix();
     }
     addObjects() {
-        this.geometry = new _three.BoxGeometry(1, 1, 1);
+        this.geometry = new _three.PlaneGeometry(.5, .5, 10, 10);
         // this.material = new THREE.MeshNormalMaterial( { color: 0x00ff00 } );
         this.material = new _three.ShaderMaterial({
+            side: _three.DoubleSide,
             fragmentShader: (0, _fragmentGlslDefault.default),
-            vertexShader: (0, _vertexGlslDefault.default)
+            vertexShader: (0, _vertexGlslDefault.default),
+            wireframe: true
         });
         this.cube = new _three.Mesh(this.geometry, this.material);
         this.scene.add(this.cube);
     }
     render() {
         this.time += 0.5;
-        this.cube.rotation.x += 0.001;
-        this.cube.rotation.y += 0.001;
         this.renderer.render(this.scene, this.camera);
         window.requestAnimationFrame(this.render.bind(this));
     }
@@ -643,7 +643,7 @@ class Sketch {
 exports.default = Sketch;
 new Sketch();
 
-},{"three":"ktPTu","three/examples/jsm/controls/OrbitControls":"7mqRv","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./shaders/fragment.glsl":"lNZh0","./shaders/vertex.glsl":"cTz87"}],"ktPTu":[function(require,module,exports) {
+},{"three":"ktPTu","three/examples/jsm/controls/OrbitControls":"7mqRv","./shaders/fragment.glsl":"lNZh0","./shaders/vertex.glsl":"cTz87","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ktPTu":[function(require,module,exports) {
 /**
  * @license
  * Copyright 2010-2023 Three.js Authors
@@ -31276,7 +31276,7 @@ class OrbitControls extends (0, _three.EventDispatcher) {
 module.exports = "#define GLSLIFY 1\nvoid main(){\n    gl_FragColor = vec4(1., 1., 1.0, 1.);\n}";
 
 },{}],"cTz87":[function(require,module,exports) {
-module.exports = "#define GLSLIFY 1\n\nvoid main(){\n    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);\n}";
+module.exports = "#define GLSLIFY 1\n\nvoid main(){\n\n    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);\n}";
 
 },{}]},["fTqHN","5AKj5"], "5AKj5", "parcelRequiredfa7")
 
